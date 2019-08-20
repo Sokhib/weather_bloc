@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: MyHomePage(title: 'Fake Weather'),
+        home: MyHomePage(title: 'Weather'),
       ),
     );
   }
@@ -82,14 +82,14 @@ class _MyHomePageState extends State<MyHomePage> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Text(
-          "${response.cityName}",
+          "${response.location.name}",
           style: TextStyle(
             fontSize: 40,
             fontWeight: FontWeight.w700,
           ),
         ),
         Text(
-          "${response.temperature} °C",
+          "${response.current.temp_c.toString()} °C",
           style: TextStyle(fontSize: 80),
         ),
         CityInputField(),

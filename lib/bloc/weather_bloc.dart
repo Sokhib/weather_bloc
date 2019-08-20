@@ -18,11 +18,25 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       yield WeatherLoading();
       final weatherData =
           await PostApiService.create().getWeather(event.cityName);
-      print(weatherData.bodyString);
-      Map<String, dynamic> list = json.decode(weatherData.bodyString);
-      print(list['location']['name']);
-      //toString() add
-      yield WeatherLoaded(Weather(cityName: list['location']['name'], temperature: list['current']['temp_c']));
+      final weatherJson = json.decode(weatherData.bodyString);
+      print("date is: ${weatherJson['forecast']['forecastday'][0]['date']}");
+
+      Weather weather = Weather.fromJsonMap(weatherJson);
+      print(weather.location.country);
+
+      yield WeatherLoaded(weather);
+    }
+    if(event is RefreshWeather) {
+      yield WeatherLoading();
+      final weatherData =
+      await PostApiService.create().getWeather(event.city);
+      final weatherJson = json.decode(weatherData.bodyString);
+      print("date is: ${weatherJson['forecast']['forecastday'][0]['date']}");
+
+      Weather weather = Weather.fromJsonMap(weatherJson);
+      print(weather.location.country);
+
+      yield WeatherLoaded(weather);
     }
   }
 }

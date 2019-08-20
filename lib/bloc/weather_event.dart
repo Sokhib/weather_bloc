@@ -9,5 +9,14 @@ abstract class WeatherEvent extends Equatable {
 class GetWeather extends WeatherEvent {
   final String cityName;
 
-  GetWeather(this.cityName) : super([cityName]);
+  GetWeather(this.cityName)
+      : assert(cityName != null),
+        super([cityName]);
+}
+class RefreshWeather extends WeatherEvent {
+  final String city;
+
+  RefreshWeather({@required this.city})
+      : assert(city != null),
+        super([city]);
 }

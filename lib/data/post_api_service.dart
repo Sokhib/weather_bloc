@@ -4,7 +4,7 @@ part 'post_api_service.chopper.dart';
 
 @ChopperApi(baseUrl: '/v1')
 abstract class PostApiService extends ChopperService {
-  @Get(path: 'current.json?key=6bf7dfb2d536499495b144936192906&q={q}')
+  @Get(path: 'forecast.json?key=6bf7dfb2d536499495b144936192906&q={q}&days=5')
   Future<Response> getWeather(@Path() String q);
 
   static PostApiService create() {
