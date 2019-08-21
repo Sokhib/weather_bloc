@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
 import 'bloc/weather_bloc.dart';
 import 'bloc/weather_event.dart';
 import 'bloc/weather_state.dart';
-import 'data/post_api_service.dart';
 import 'model/weather.dart';
 
 void main() => runApp(MyApp());
@@ -13,16 +11,12 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Provider(
-      builder: (_) => PostApiService.create(),
-      dispose: (_, PostApiService service) => service.client.dispose(),
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: MyHomePage(title: 'Weather'),
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      home: MyHomePage(title: 'Weather'),
     );
   }
 }
@@ -55,6 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
               listener: (context, WeatherState state) {
                 if (state is WeatherLoaded) {
                   print("${state.response} we are in listener");
+                  //return buildColumnWithData(state.response);  //should be added. below removed
                 }
               },
               child: BlocBuilder(
